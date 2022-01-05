@@ -8,41 +8,55 @@ import javax.imageio.ImageIO;
 public class Compression {
     public static void main(String[] args) throws IOException{
         BufferedImage inputImage = ImageIO.read(new File("./input.png"));
-        int out = 0;
-        byte other = 0;
-        System.out.println(out);
-        System.out.println(Integer.toBinaryString(out));
-        
-        for (int x = 0; x < inputImage.getWidth(); x++) {
-            int shiftCount = 0;
-            for (int y = 0; y < inputImage.getHeight(); y++) {
-                int currPixel = inputImage.getRGB(x, y);
-                if (isCloserToBlack(currPixel)) {
-                    System.out.print("#");
-                    out = out | 1;
-                }
-                else {
-                    System.out.print("-");
-                }
 
-                if (shiftCount < 7) {
-                    out = out << 1;
-                    shiftCount += 1;
+        BufferedImage ditheredImage = dither(inputImage);
+        //saveImage(ditheredImage, "/home/luis/Documents/GitRepos/ImageCompression/src/");
+
+        byte[] compressedData = imageToByteArray(ditheredImage);
+    }
+
+    static BufferedImage quantize(BufferedImage image) {
+        BufferedImage output = image.getSubimage(0, 0, image.getWidth(), image.getHeight());
+        for (int y = 0; y < image.getHeight(); y++) {
+            for (int x = 0; x < image.getWidth(); x++) {
+                int currPixel = image.getRGB(x, y);
+                if (isCloserToBlack(currPixel)) {
+                    output.setRGB(x, y, Color.BLACK.getRGB());
                 }
                 else {
-                    shiftCount = 0;
+                    output.setRGB(x, y, Color.WHITE.getRGB());
                 }
             }
-            System.out.print("\t" + Integer.toBinaryString(out) + "\n");
-            out = 0;
         }
+        return output;
+    }
+
+    static BufferedImage dither(BufferedImage image) {
+        BufferedImage output = image.getSubimage(0, 0, image.getWidth(), image.getHeight());
+        for (int y = 0; y < image.getHeight(); y++) {
+            for (int x = 0; x < image.getWidth(); x++) {
+                Color originalColor = new Color(image.getRGB(x, y));
+                Color newColor;
+                if (isCloserToBlack(originalColor.getRGB())) {
+                    newColor = Color.BLACK;
+                    output.setRGB(x, y, newColor.getRGB());
+                }
+                else {
+                    newColor = Color.WHITE;
+                    output.setRGB(x, y, newColor.getRGB());
+                }
+                pushQuantizeError(output, x, y, originalColor, newColor);
+            }
+            System.out.println();
+        }
+        return output;
     }
 
     static boolean isCloserToBlack(int rgb) {
         Color color = new Color(rgb);
 
-        double distFromBlack = distanceFromColor(color, Color.black);
-        double distFromWhite = distanceFromColor(color, Color.white);
+        double distFromBlack = Utils.distanceFromColor(color, Color.black);
+        double distFromWhite = Utils.distanceFromColor(color, Color.white);
 
         if (distFromBlack < distFromWhite) {
             return true;
@@ -52,12 +66,112 @@ public class Compression {
         }
     }
 
-    static double distanceFromColor(Color color, Color target) {
-        double dist = Math.sqrt(
-            Math.pow(target.getRed() - color.getRed(), 2)
-            + Math.pow(target.getGreen() - color.getGreen(), 2)
-            + Math.pow(target.getBlue() - color.getBlue(), 2)
-        );
-        return dist;
+    static void pushQuantizeError(BufferedImage image, int x, int y, Color oldColor, Color newColor) {
+        int errorR = oldColor.getRed() - newColor.getRed();
+        int errorG = oldColor.getGreen() - newColor.getGreen();
+        int errorB = oldColor.getBlue() - newColor.getBlue();
+
+        // Right neighbor
+        if (Utils.inBounds(x + 1, y, image.getWidth(), image.getHeight())) {
+            Color neighborColor = new Color(image.getRGB(x + 1, y));
+            int r = neighborColor.getRed() + (errorR * 6 / 16);
+            int g = neighborColor.getGreen() + (errorG * 6 / 16);
+            int b = neighborColor.getBlue() + (errorB * 6 / 16);
+            r = Utils.clamp(r, 0, 255);
+            g = Utils.clamp(g, 0, 255);
+            b = Utils.clamp(b, 0, 255);
+            neighborColor = new Color(r, g, b);
+            image.setRGB(x + 1, y, neighborColor.getRGB());
+        }
+
+        // Bottom left neighbor
+        if (Utils.inBounds(x - 1, y + 1, image.getWidth(), image.getHeight())) {
+            Color neighborColor = new Color(image.getRGB(x - 1, y + 1));
+            int r = neighborColor.getRed() + (errorR * 2 / 16);
+            int g = neighborColor.getGreen() + (errorG * 2 / 16);
+            int b = neighborColor.getBlue() + (errorB * 2 / 16);
+            r = Utils.clamp(r, 0, 255);
+            g = Utils.clamp(g, 0, 255);
+            b = Utils.clamp(b, 0, 255);
+            neighborColor = new Color(r, g, b);
+            image.setRGB(x - 1, y + 1, neighborColor.getRGB());
+        }
+
+        // Bottom neighbor
+        if (Utils.inBounds(x, y + 1, image.getWidth(), image.getHeight())) {
+            Color neighborColor = new Color(image.getRGB(x, y + 1));
+            int r = neighborColor.getRed() + (errorR * 6 / 16);
+            int g = neighborColor.getGreen() + (errorG * 6 / 16);
+            int b = neighborColor.getBlue() + (errorB * 6 / 16);
+            r = Utils.clamp(r, 0, 255);
+            g = Utils.clamp(g, 0, 255);
+            b = Utils.clamp(b, 0, 255);
+            neighborColor = new Color(r, g, b);
+            image.setRGB(x, y + 1, neighborColor.getRGB());
+        }
+
+        // Bottom right neighbor
+        if (Utils.inBounds(x + 1, y + 1, image.getWidth(), image.getHeight())) {
+            Color neighborColor = new Color(image.getRGB(x + 1, y + 1));
+            int r = neighborColor.getRed() + (errorR * 2 / 16);
+            int g = neighborColor.getGreen() + (errorG * 2 / 16);
+            int b = neighborColor.getBlue() + (errorB * 2 / 16);
+            r = Utils.clamp(r, 0, 255);
+            g = Utils.clamp(g, 0, 255);
+            b = Utils.clamp(b, 0, 255);
+            neighborColor = new Color(r, g, b);
+            image.setRGB(x + 1, y + 1, neighborColor.getRGB());
+        }
+    }
+
+    public static boolean saveImage(BufferedImage image, String path) {
+        boolean saved = false;
+        try {
+            ImageIO.write(image, "png", new File(path + Utils.timestamp() + ".png"));
+            saved = true;
+        } catch (IOException exception) {
+            System.out.println("Could not save file: " + path);
+        }
+
+        return saved;
+    }
+
+    static byte[] imageToByteArray(BufferedImage image) {
+        long numOfPixels = image.getWidth() * image.getHeight();
+        int arraySize = (int) numOfPixels / 8;
+        if (numOfPixels % 8 > 0) {
+            arraySize += 1;
+        }
+        byte[] output = new byte[arraySize];
+        
+        int arrayIndex = 0;
+        int bitIndex = 0;
+        int currentByte = 0;
+        for (int y = 0; y < image.getHeight(); y++) {
+            for (int x = 0; x < image.getWidth(); x++) {
+                //set bit
+                if (!isCloserToBlack(image.getRGB(x, y))) {
+                    currentByte = currentByte | 1;
+                }
+
+                //shift over
+                if (bitIndex < 7) {
+                    currentByte = currentByte << 1;
+                    bitIndex += 1;
+                }
+
+                //write byte then shift byte
+                if (bitIndex >= 7) {
+                    System.out.print(String.format("%-5d", (byte) currentByte) + "\t");
+                    System.out.print(Integer.toBinaryString((currentByte & 0xFF) + 0x100).substring(1));
+                    System.out.println();
+                    output[arrayIndex] = (byte) currentByte;
+                    arrayIndex += 1;
+                    currentByte = 0;
+                    bitIndex = 0;
+                }
+            }
+        }
+        return output;
     }
 }
