@@ -7,12 +7,15 @@ import javax.imageio.ImageIO;
 
 public class Compression {
     public static void main(String[] args) throws IOException{
-        BufferedImage inputImage = ImageIO.read(new File("./input.png"));
+        BufferedImage inputImage = ImageIO.read(new File("/home/luis/Documents/GitRepos/ImageCompression/src/input.png"));
 
-        BufferedImage ditheredImage = dither(inputImage);
-        //saveImage(ditheredImage, "/home/luis/Documents/GitRepos/ImageCompression/src/");
+        Ditherer ditherer = new Ditherer();
+        ditherer.addColorToPallet(Color.WHITE);
+        ditherer.addColorToPallet(Color.BLACK);
+        ditherer.setErrorKernelSize(1);
 
-        byte[] compressedData = imageToByteArray(ditheredImage);
+        BufferedImage ditheredImage = ditherer.dither(inputImage);
+        saveImage(ditheredImage, "/home/luis/Documents/GitRepos/ImageCompression/src/");
     }
 
     static BufferedImage quantize(BufferedImage image) {
@@ -155,13 +158,12 @@ public class Compression {
                 }
 
                 //shift over
-                if (bitIndex < 7) {
-                    currentByte = currentByte << 1;
-                    bitIndex += 1;
-                }
+                currentByte = currentByte << 1;
+                bitIndex += 1;
+                
 
                 //write byte then shift byte
-                if (bitIndex >= 7) {
+                if (bitIndex > 7) {
                     System.out.print(String.format("%-5d", (byte) currentByte) + "\t");
                     System.out.print(Integer.toBinaryString((currentByte & 0xFF) + 0x100).substring(1));
                     System.out.println();
