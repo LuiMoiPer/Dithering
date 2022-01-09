@@ -29,6 +29,10 @@ public class Utils {
         return new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss.SS").format(new Date());
     }
 
+    public static boolean inBounds(Point point, int width, int height) {
+        return inBounds(point.getX(), point.getY(), width, height);
+    }
+
     public static boolean inBounds(int x, int y, int width, int height) {
         if ((x >= 0 && x < width)
             && (y >= 0 && y < height)
