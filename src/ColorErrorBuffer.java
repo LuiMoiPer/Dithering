@@ -18,8 +18,14 @@ public class ColorErrorBuffer {
     }
 
     public void advanceRow() {
-        for (int i = 0; i + width < buffer.length; i++) {
+        int i = 0;
+        // move the rows
+        for (; i + width < buffer.length; i++) {
             buffer[i] = buffer[i + width];
+        }
+        // reset last row
+        for (; i < buffer.length; i++) {
+            buffer[i] = new ColorError();
         }
         rowOffset++;
     }
