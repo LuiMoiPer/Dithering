@@ -37,11 +37,11 @@ public class Ditherer {
 
         for (int y = 0; y < copy.getHeight(); y++) {
             for (int x = 0; x < copy.getWidth(); x++) {
-                Color currentColor = new Color(copy.getRGB(x, y));
+                Color currentColor = applyError(x, y, copy.getRGB(x, y));
                 Color newColor = closestPalletColor(currentColor);
                 output.setRGB(x, y, newColor.getRGB());
 
-                pushErrorToImage(copy, x, y, currentColor, newColor);
+                pushErrorToBuffer(image, x, y, currentColor, newColor);
             }
             colorErrorBuffer.advanceRow();
         }
