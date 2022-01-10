@@ -42,6 +42,7 @@ public class Ditherer {
 
                 pushError(image, x, y, newColor);
             }
+            colorErrorBuffer.advanceRow();
         }
         return output;
     }

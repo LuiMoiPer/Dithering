@@ -17,7 +17,7 @@ public class ColorErrorBuffer {
         }
     }
 
-    public void finishedRow() {
+    public void advanceRow() {
         for (int i = 0; i + width < buffer.length; i++) {
             buffer[i] = buffer[i + width];
         }
@@ -29,7 +29,7 @@ public class ColorErrorBuffer {
     }
 
     public void pushError(int x, int y, ColorError error) {
-        if (y < rowOffset || y > rowOffset + height) {
+        if (y < rowOffset || y >= rowOffset + height) {
             throw new IllegalArgumentException();
         }
 
