@@ -84,4 +84,75 @@ public class Pallet {
         pallet.add(new Color(232, 231, 203));
         return pallet;
     }
+
+    static Set<Color> BLESSING() {
+        Set<Color> pallet = new HashSet<>();
+        pallet.add(new Color(116, 86, 155));
+        pallet.add(new Color(150, 251, 199));
+        pallet.add(new Color(247, 255, 174));
+        pallet.add(new Color(255, 179, 203));
+        pallet.add(new Color(216, 191, 216));
+        return pallet;
+    }
+
+    static Set<Color> SRIRACHA() {
+        Set<Color> pallet = new HashSet<>();
+        pallet.add(new Color(117, 5, 0));
+        pallet.add(new Color(188, 33, 10));
+        pallet.add(new Color(205, 85, 50));
+        pallet.add(new Color(241, 175, 141));
+        pallet.add(new Color(7, 125, 34));
+        pallet.add(new Color(40, 159, 79));
+        pallet.add(new Color(78, 197, 128));
+        pallet.add(new Color(226, 226, 192));
+        return pallet;
+    }
+
+    static Set<Color> NOPAL12() {
+        Set<Color> pallet = new HashSet<>();
+        pallet.add(new Color(226, 228, 223));
+        pallet.add(new Color(197, 207, 196));
+        pallet.add(new Color(168, 181, 174));
+        pallet.add(new Color(146, 146, 156));
+        pallet.add(new Color(255, 236, 237));
+        pallet.add(new Color(251, 212, 210));
+        pallet.add(new Color(241, 180, 180));
+        pallet.add(new Color(204, 163, 163));
+        pallet.add(new Color(241, 234, 182));
+        pallet.add(new Color(228, 219, 160));
+        pallet.add(new Color(202, 193, 138));
+        pallet.add(new Color(171, 164, 123));
+        return pallet;
+    }
+
+    static Set<Color> Rgb() {
+        Set<Color> pallet = new HashSet<>();
+        pallet.add(Color.RED);
+        pallet.add(Color.GREEN);
+        pallet.add(Color.BLUE);
+        return pallet;
+    }
+
+    static Set<Color> Cmy() {
+        Set<Color> pallet = new HashSet<>();
+        pallet.add(Color.CYAN);
+        pallet.add(Color.MAGENTA);
+        pallet.add(Color.YELLOW);
+        return pallet;
+    }
+
+    static Set<Color> Bw() {
+        Set<Color> pallet = new HashSet<>();
+        pallet.add(Color.BLACK);
+        pallet.add(Color.WHITE);
+        return pallet;
+    }
 }
+
+/*
+static Set<Color> Blank() {
+    Set<Color> pallet = new HashSet<>();
+    pallet.add(new Color(, , ));
+    return pallet;
+}
+*/
