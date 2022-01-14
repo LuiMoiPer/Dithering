@@ -147,6 +147,19 @@ public class Pallet {
         pallet.add(Color.WHITE);
         return pallet;
     }
+
+    static Set<Color> BwRgbCym() {
+        Set<Color> pallet = new HashSet<>();
+        pallet.add(Color.BLACK);
+        pallet.add(Color.WHITE);
+        pallet.add(Color.RED);
+        pallet.add(Color.GREEN);
+        pallet.add(Color.BLUE);
+        pallet.add(Color.CYAN);
+        pallet.add(Color.YELLOW);
+        pallet.add(Color.MAGENTA);
+        return pallet;
+    }
 }
 
 /*
