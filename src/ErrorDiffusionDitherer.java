@@ -4,30 +4,38 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-public class Ditherer {
+public class ErrorDiffusionDitherer implements IDitherer{
 
     private Set<Color> pallet;
     private ErrorKernel errorKernel;
     private ColorErrorBuffer colorErrorBuffer;
 
-    public Ditherer() {
+    public ErrorDiffusionDitherer() {
         pallet = new HashSet<Color>();
     }
 
+    @Override
     public void addColorToPallet(Color color) {
         pallet.add(color);
     }
 
+    @Override
     public void setColorPallet(Set<Color> pallet) {
         this.pallet = pallet;
+    }
+
+    @Override
+    public void resetColorPallet() {
+        pallet = new HashSet<Color>();
     }
 
     public void setErrorKernelSize(int size) {
         errorKernel = new ErrorKernel(size);
     }
 
+    @Override
     public BufferedImage dither(BufferedImage image) {
-        if (pallet == null || errorKernel == null) {
+        if (errorKernel == null) {
             throw new IllegalArgumentException();
         }
 
@@ -83,32 +91,6 @@ public class Ditherer {
                     (int) (blueError * weight)
                 );
                 colorErrorBuffer.pushError(neighbor, colorError);
-            }
-        }
-    }
-
-    private void pushErrorToImage(BufferedImage image, int x, int y, Color oldColor, Color newColor) {
-        int redError = oldColor.getRed() - newColor.getRed();
-        int greenError = oldColor.getGreen() - newColor.getGreen();
-        int blueError = oldColor.getBlue() - newColor.getBlue();
-
-        Point currentPixel = new Point(x, y);
-        ErrorKernel.WeightedPoint[] neighbors = errorKernel.getWeightedPoints();
-
-        for (int i = 0; i < neighbors.length; i++) {
-            Point neighbor = Point.add(currentPixel, neighbors[i].getPoint());
-            float weight = neighbors[i].getWeight();
-            
-            if (Utils.inBounds(neighbor, image.getWidth(), image.getHeight())) {
-                Color neighborColor = new Color(image.getRGB(neighbor.getX(), neighbor.getY()));
-                int r = (int) (neighborColor.getRed() + redError * weight);
-                int g = (int) (neighborColor.getGreen() + greenError * weight);
-                int b = (int) (neighborColor.getBlue() + blueError * weight);
-                r = Utils.clamp(r, 0, 255);
-                g = Utils.clamp(g, 0, 255);
-                b = Utils.clamp(b, 0, 255);
-                neighborColor = new Color(r, g, b);
-                image.setRGB(neighbor.getX(), neighbor.getY(), neighborColor.getRGB());
             }
         }
     }
