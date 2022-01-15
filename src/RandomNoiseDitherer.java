@@ -9,10 +9,16 @@ public class RandomNoiseDitherer implements IDitherer {
 
     private Set<Color> pallet;
     private Random random;
+    private float strength;
 
     public RandomNoiseDitherer() {
         pallet = new HashSet<Color>();
         random = new Random();
+        strength = 1f;
+    }
+
+    public void setStrength(float strength) {
+        this.strength = strength;
     }
 
     @Override
@@ -60,9 +66,9 @@ public class RandomNoiseDitherer implements IDitherer {
 
     private int applyNoise(int rgb) {
         Color initialColor = new Color(rgb);
-        int adjustedRed = initialColor.getRed() + (random.nextInt(256) - 128);
-        int adjustedGreen = initialColor.getGreen() + (random.nextInt(256) - 128);
-        int adjustedBlue = initialColor.getBlue() + (random.nextInt(256) - 128);
+        int adjustedRed = initialColor.getRed() + (int) (strength * (random.nextInt(256) - 128));
+        int adjustedGreen = initialColor.getGreen() + (int) (strength * (random.nextInt(256) - 128));
+        int adjustedBlue = initialColor.getBlue() + (int) (strength * (random.nextInt(256) - 128));
 
         adjustedRed = Utils.clamp(adjustedRed, 0, 255);
         adjustedGreen = Utils.clamp(adjustedGreen, 0, 255);
