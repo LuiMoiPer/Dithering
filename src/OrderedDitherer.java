@@ -9,19 +9,20 @@ public class OrderedDitherer implements IDitherer {
     private static final int MAX_CHANNEL_VALUE = 255;
 
     private Set<Color> pallet;
-    private int[][] matrix = {
-        {24, 10, 12, 26, 35, 47, 49, 37},
-		{8, 0, 2, 14, 45, 59, 61, 51},
-		{22, 6, 4, 16, 43, 57, 63, 53},
-		{30, 20, 18, 28, 33, 41, 55, 39},
-		{34, 46, 48, 36, 25, 11, 13, 27},
-		{44, 58, 60, 50, 9, 1, 3, 15},
-		{42, 56, 62, 52, 23, 7, 5, 17},
-		{32, 40, 54, 38, 31, 21, 19, 29},
-    };
+    private Matrix matrix;
+    private float strength;
 
     public OrderedDitherer() {
         pallet = new HashSet<Color>();
+        strength = 1f;
+    }
+
+    public void setMatrix(Matrix matrix) {
+        this.matrix = matrix;
+    }
+
+    public void setStrength(float strength) {
+        this.strength = strength;
     }
 
     @Override
@@ -49,26 +50,28 @@ public class OrderedDitherer implements IDitherer {
         while (y < copy.getHeight()) {
             while (x < copy.getWidth()) {
                 applyMatrix(copy, output, x, y);
-                x += matrix[0].length;
+                x += matrix.getTilingOffset().getX();
             }
             x = 0;
-            y += matrix.length;
+            y += matrix.getTilingOffset().getY();
         }
 
         return output;
     }
     
     private void applyMatrix(BufferedImage copy, BufferedImage output, int x, int y) {
-        int matrixMax = matrix.length * matrix[0].length;
+        int matrixMax = matrix.getMax();
+        int[][] ditherMatrix = matrix.getMatrix();
+        
 
-        for (int h = 0; h < matrix.length; h++) {
-            for (int w = 0; w < matrix[0].length; w++) {
+        for (int h = 0; h < ditherMatrix.length; h++) {
+            for (int w = 0; w < ditherMatrix[0].length; w++) {
                 if (!Utils.inBounds(x + w, y + h, copy.getWidth(), copy.getHeight())) {
                     continue;
                 }
 
-                int cellValue = matrix[h][w];
-                int adjustAmount = (int) (MAX_CHANNEL_VALUE * ((cellValue / (float) matrixMax - 0.5f)));
+                int cellValue = ditherMatrix[h][w];
+                int adjustAmount = (int) ((MAX_CHANNEL_VALUE * strength) * ((cellValue / (float) matrixMax - 0.5f)));
 
                 Color adjustedColor = adjustColor(copy.getRGB(x, y), adjustAmount);
                 Color newColor = closestPalletColor(adjustedColor);
