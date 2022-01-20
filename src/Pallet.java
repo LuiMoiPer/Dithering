@@ -3,6 +3,15 @@ import java.util.Set;
 import java.awt.Color;
 
 public class Pallet {
+
+    /**
+     * A color pallet by Kirokaze pulled off of Lospec.com and inspired by the
+     * GameBoy.
+     * 
+     * Link to pallet: https://lospec.com/palette-list/kirokaze-gameboy
+     * 
+     * @return a set of 4 greenish and blueish colors.
+     */
     static Set<Color> KiroKaze() {
         Set<Color> pallet = new HashSet<>();
         pallet.add(new Color(51, 44, 80));
@@ -12,6 +21,16 @@ public class Pallet {
         return pallet;
     }
 
+    /**
+     * A color pallet by Star pulled off of Lospec.com.
+     * 
+     * Original description: A palette I made out of colors in a sunset I saw 
+     * from my window a while back.
+     * 
+     * Link to pallet: https://lospec.com/palette-list/twilight-5
+     * 
+     * @return a set of 5 warm pastel colors.
+     */
     static Set<Color> Twilight5() {
         Set<Color> pallet = new HashSet<>();
         pallet.add(new Color(251, 187, 173));
@@ -22,6 +41,13 @@ public class Pallet {
         return pallet;
     }
 
+    /**
+     * A color pallet by Conker pulled off of Lospec.com.
+     * 
+     * Link to pallet: https://lospec.com/palette-list/pollen8
+     * 
+     * @return a set of 8 pastel colors leaning to toward a warm color range.
+     */
     static Set<Color> Pollen8() {
         Set<Color> pallet = new HashSet<>();
         pallet.add(new Color(115, 70, 76));
@@ -35,6 +61,16 @@ public class Pallet {
         return pallet;
     }
 
+    /**
+     * A color pallet by Shamaboy pulled off of Lospec.com.
+     * 
+     * Original description: Neon and futuristic palette that was mainly 
+     * inspired by retrowave aesthics
+     * 
+     * Link to pallet: https://lospec.com/palette-list/funkyfuture-8
+     * 
+     * @return a set of 8 neon colors.
+     */
     static Set<Color> FUNKYFUTURE8() {
         Set<Color> pallet = new HashSet<>();
         pallet.add(new Color(43, 15, 84));
@@ -48,6 +84,13 @@ public class Pallet {
         return pallet;
     }
 
+    /**
+     * A color pallet by P-Tux7 pulled off of Lospec.com.
+     * 
+     * Link to pallet: https://lospec.com/palette-list/fuzzyfour
+     * 
+     * @return a set of 4 bright neon colors.
+     */
     static Set<Color> FUZZYFOUR() {
         Set<Color> pallet = new HashSet<>();
         pallet.add(new Color(48, 35, 135));
@@ -57,6 +100,15 @@ public class Pallet {
         return pallet;
     }
 
+    /**
+     * A color pallet by Cappuchi pulled off of Lospec.com.
+     * 
+     * Original description: A palette based on my recent works!
+     * 
+     * Link to pallet: https://lospec.com/palette-list/capp-5
+     * 
+     * @return a set of 5 colors, 4 light blue colors and a light yellow accent.
+     */
     static Set<Color> CAPP5() {
         Set<Color> pallet = new HashSet<>();
         pallet.add(new Color(250, 221, 162));
@@ -67,6 +119,17 @@ public class Pallet {
         return pallet;
     }
 
+    /**
+     * A color pallet pulled off of Lospec.com.
+     * 
+     * Original description: One of the palettes available in the standard mode
+     * on the CGA. The black can be replaced by any of the other colors in the 
+     * full CGA palette.
+     * 
+     * Link to pallet: https://lospec.com/palette-list/cga-palette-1-high
+     * 
+     * @return a set of 4 colors including cyan and magenta.
+     */
     static Set<Color> CGA1HIGH() {
         Set<Color> pallet = new HashSet<>();
         pallet.add(new Color(0, 0, 0));
@@ -76,6 +139,15 @@ public class Pallet {
         return pallet;
     }
 
+    /**
+     * A color pallet by Cappuchi pulled off of Lospec.com.
+     * 
+     * Original description: A limited color palette with a peach soda vibe!
+     * 
+     * Link to pallet: https://lospec.com/palette-list/soda-cap
+     * 
+     * @return a set of 4 warm pastel colors.
+     */
     static Set<Color> SODACAP() {
         Set<Color> pallet = new HashSet<>();
         pallet.add(new Color(33, 118, 204));
@@ -85,6 +157,19 @@ public class Pallet {
         return pallet;
     }
 
+    /**
+     * A color pallet by まるき pulled off of Lospec.com.
+     * 
+     * Original description: noun. God's favor and protection. This palette is
+     * composed by only highlights and no shadow colors, because in heaven 
+     * there is no place for darkness. After overcoming the trial of using it,
+     * you'll be rewarded (hopefully) with the feeling that you became a more
+     * enlightened being. Palette created by Maruki.
+     * 
+     * Link to pallet: https://lospec.com/palette-list/blessing
+     * 
+     * @return a set of 5 bright pastel colors.
+     */
     static Set<Color> BLESSING() {
         Set<Color> pallet = new HashSet<>();
         pallet.add(new Color(116, 86, 155));
@@ -95,6 +180,16 @@ public class Pallet {
         return pallet;
     }
 
+    /**
+     * A color pallet by Potvii pulled off of Lospec.com.
+     * 
+     * Original description: Spicy colors sampled from a classic Sriracha sauce
+     * bottle.
+     * 
+     * Link to pallet: https://lospec.com/palette-list/sriracha
+     * 
+     * @return a set of 8 colors, half red half green.
+     */
     static Set<Color> SRIRACHA() {
         Set<Color> pallet = new HashSet<>();
         pallet.add(new Color(117, 5, 0));
@@ -108,6 +203,15 @@ public class Pallet {
         return pallet;
     }
 
+    /**
+     * A color pallet by BlackedIRL pulled off of Lospec.com.
+     * 
+     * Original description: Based on arid nature
+     * 
+     * Link to pallet: https://lospec.com/palette-list/sriracha
+     * 
+     * @return a set of 12 soft low contrast colors.
+     */
     static Set<Color> NOPAL12() {
         Set<Color> pallet = new HashSet<>();
         pallet.add(new Color(226, 228, 223));
@@ -125,6 +229,11 @@ public class Pallet {
         return pallet;
     }
 
+    /**
+     * Just red, green, and blue.
+     * 
+     * @return a set containing red, green, and blue.
+     */
     static Set<Color> Rgb() {
         Set<Color> pallet = new HashSet<>();
         pallet.add(Color.RED);
@@ -133,6 +242,11 @@ public class Pallet {
         return pallet;
     }
 
+    /**
+     * Just cyan, magenta, and yellow.
+     * 
+     * @return a set containing cyan, magenta, and yellow.
+     */
     static Set<Color> Cmy() {
         Set<Color> pallet = new HashSet<>();
         pallet.add(Color.CYAN);
@@ -141,6 +255,11 @@ public class Pallet {
         return pallet;
     }
 
+    /**
+     * Just black and white.
+     * 
+     * @return a set containing black and white.
+     */
     static Set<Color> Bw() {
         Set<Color> pallet = new HashSet<>();
         pallet.add(Color.BLACK);
@@ -148,6 +267,11 @@ public class Pallet {
         return pallet;
     }
 
+    /**
+     * Black, white, red, green, blue, cyan, magenta, and yellow
+     * 
+     * @return all 8 possible colors using a 1 bit color depth per channel.
+     */
     static Set<Color> BwRgbCym() {
         Set<Color> pallet = new HashSet<>();
         pallet.add(Color.BLACK);
