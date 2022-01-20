@@ -8,13 +8,13 @@ I had seen many dithering effects throughout the years and wanted to learn how i
 
 ## Outputs
 Input image by Akshay Anand
-![input image by Akshay Anand](https://github.com/LuiMoiPer/Dithering/tree/main/src/ReadmeFiles/Image/pexels-akshay-anand-3370381.jpg)
+![input image by Akshay Anand](https://github.com/LuiMoiPer/Dithering/tree/main/ReadmeFiles/Image/pexels-akshay-anand-3370381.jpg)
 
 The following outputs were done using the [pollen8](https://lospec.com/palette-list/pollen8) from lospec.
 
 Method | Output
 :-: | :-:
-Quantize | ![quantized image](https://github.com/LuiMoiPer/Dithering/tree/main/src/ReadmeFiles/Image/quantizedOutput1.png)
-Random Noise | ![noise dithered image](https://github.com/LuiMoiPer/Dithering/tree/main/src/ReadmeFiles/Image/noiseDitheredOutput1.png)
-Ordered | ![ordered dithered image](https://github.com/LuiMoiPer/Dithering/tree/main/src/ReadmeFiles/Image/orderedDitheredOutput1.png)
-Error Diffused | ![error difused image](https://github.com/LuiMoiPer/Dithering/tree/main/src/ReadmeFiles/Image/errorDiffusionDitheredOutput1.png)
+Quantize | ![quantized image](https://github.com/LuiMoiPer/Dithering/tree/main/ReadmeFiles/Image/quantizedOutput1.png)
+Random Noise | ![noise dithered image](https://github.com/LuiMoiPer/Dithering/tree/main/ReadmeFiles/Image/noiseDitheredOutput1.png)
+Ordered | ![ordered dithered image](https://github.com/LuiMoiPer/Dithering/tree/main/ReadmeFiles/Image/orderedDitheredOutput1.png)
+Error Diffused | ![error difused image](https://github.com/LuiMoiPer/Dithering/tree/main/ReadmeFiles/Image/errorDiffusionDitheredOutput1.png)
