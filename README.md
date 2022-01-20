@@ -7,14 +7,14 @@ I had seen many dithering effects throughout the years and wanted to learn how i
 * For noise and ordered dithering I referenced [this article](https://surma.dev/things/ditherpunk/) by Surma as well as [an article](https://www.makeworld.space/2021/02/dithering.html) by makeworld.
 
 ## Outputs
-Input image by Akshay Anand
-![input image by Akshay Anand](https://github.com/LuiMoiPer/Dithering/tree/main/ReadmeFiles/Image/pexels-akshay-anand-3370381.jpg)
+input image by Akshay Anand
+![input image by Akshay Anand](./Image/pexels-akshay-anand-3370381.jpg)
 
 The following outputs were done using the [pollen8](https://lospec.com/palette-list/pollen8) from lospec.
 
 Method | Output
 :-: | :-:
-Quantize | ![quantized image](https://github.com/LuiMoiPer/Dithering/tree/main/ReadmeFiles/Image/quantizedOutput1.png)
-Random Noise | ![noise dithered image](https://github.com/LuiMoiPer/Dithering/tree/main/ReadmeFiles/Image/noiseDitheredOutput1.png)
-Ordered | ![ordered dithered image](https://github.com/LuiMoiPer/Dithering/tree/main/ReadmeFiles/Image/orderedDitheredOutput1.png)
-Error Diffused | ![error difused image](https://github.com/LuiMoiPer/Dithering/tree/main/ReadmeFiles/Image/errorDiffusionDitheredOutput1.png)
+Quantize | ![quantized image](./Image/quantizedOutput1.png)
+Random Noise | ![noise dithered image](./Image/noiseDitheredOutput1.png)
+Ordered | ![ordered dithered image](./Image/orderedDitheredOutput1.png)
+Error Diffused | ![error difused image](./Image/errorDiffusionDitheredOutput1.png)
